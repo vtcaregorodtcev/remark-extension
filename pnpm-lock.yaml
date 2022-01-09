@@ -5,6 +5,7 @@ specifiers:
   '@parcel/core': ^2.1.0
   '@parcel/transformer-sass': ^2.1.0
   '@svgr/parcel-plugin-svgr': ^5.5.0
+  '@types/chrome': ^0.0.175
   '@types/node': ^17.0.8
   autoprefixer: ^10.4.2
   babel-plugin-module-resolver: ^4.1.0
@@ -29,6 +30,7 @@ devDependencies:
   '@parcel/core': 2.1.0
   '@parcel/transformer-sass': 2.1.0_@parcel+core@2.1.0
   '@svgr/parcel-plugin-svgr': 5.5.0
+  '@types/chrome': 0.0.175
   '@types/node': 17.0.8
   autoprefixer: 10.4.2_postcss@8.4.5
   babel-plugin-module-resolver: 4.1.0
@@ -2179,6 +2181,27 @@ packages:
   /@trysound/sax/0.2.0:
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
     engines: {node: '>=10.13.0'}
+    dev: true
+
+  /@types/chrome/0.0.175:
+    resolution: {integrity: sha512-nJy7MadK9Y4sTu4Eouv+JscyEpsEWyvSN8hNphWSgzGBV2M4prxbvPoYQHPudcTy+OecT7iiPgfYq8bsmMzzcw==}
+    dependencies:
+      '@types/filesystem': 0.0.32
+      '@types/har-format': 1.2.8
+    dev: true
+
+  /@types/filesystem/0.0.32:
+    resolution: {integrity: sha512-Yuf4jR5YYMR2DVgwuCiP11s0xuVRyPKmz8vo6HBY3CGdeMj8af93CFZX+T82+VD1+UqHOxTq31lO7MI7lepBtQ==}
+    dependencies:
+      '@types/filewriter': 0.0.29
+    dev: true
+
+  /@types/filewriter/0.0.29:
+    resolution: {integrity: sha512-BsPXH/irW0ht0Ji6iw/jJaK8Lj3FJemon2gvEqHKpCdDCeemHa+rI3WBGq5z7cDMZgoLjY40oninGxqk+8NzNQ==}
+    dev: true
+
+  /@types/har-format/1.2.8:
+    resolution: {integrity: sha512-OP6L9VuZNdskgNN3zFQQ54ceYD8OLq5IbqO4VK91ORLfOm7WdT/CiT/pHEBSQEqCInJ2y3O6iCm/zGtPElpgJQ==}
     dev: true
 
   /@types/http-proxy/1.17.8:

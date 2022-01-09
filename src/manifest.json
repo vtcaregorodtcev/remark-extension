@@ -3,5 +3,6 @@
   "version": "0.0.1",
   "description": "",
   "manifest_version": 3,
-  "action": { "default_popup": "popup.html" }
+  "action": { "default_popup": "popup.html" },
+  "permissions": ["storage"]
 }

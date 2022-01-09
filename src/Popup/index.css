@@ -31,3 +31,29 @@
 
   bottom: calc(100% + 4px);
 }
+
+.re-dots {
+  @apply flex flex-col gap-1 items-center justify-center text-xl p-1 rounded-full hover:bg-gray2 active:bg-gray1;
+
+  width: 26px;
+  height: 26px;
+}
+
+.re-dot {
+  @apply bg-gray7;
+
+  width: 3px;
+  height: 3px;
+  transform: translate(-15%, -15%);
+}
+
+.re-menu {
+  @apply absolute bg-white w-max divide-y divide-gray2 border rounded;
+
+  top: calc(100% - 10px);
+  right: 0%;
+}
+
+.re-menu-option {
+  @apply p-2 odd:bg-gray1 hover:bg-gray2 cursor-pointer;
+}
