@@ -19,7 +19,7 @@
 }
 
 .re-ok {
-  @apply bg-gray7 rounded-full p-2;
+  @apply bg-gray7 rounded-full p-2 hover:bg-gray6 active:bg-gray5;
 }
 
 .re-ok-form {

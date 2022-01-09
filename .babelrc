@@ -1,3 +1,14 @@
 {
-  "presets": ["babel-preset-solid"]
+  "presets": ["babel-preset-solid"],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": ["."],
+        "alias": {
+          "@src": "./src"
+        }
+      }
+    ]
+  ]
 }
