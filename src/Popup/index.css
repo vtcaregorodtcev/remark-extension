@@ -1,0 +1,33 @@
+.re-input {
+  @apply p-3 border rounded;
+}
+
+.re-label {
+  @apply text-base text-gray7 mb-3;
+}
+
+.re-box {
+  @apply p-2 bg-gray7 text-white border rounded;
+}
+
+.re-box-inverse {
+  @apply p-2 bg-white text-gray7 font-bold border-2 border-gray7 rounded;
+}
+
+.re-content {
+  @apply flex flex-col px-8 py-4;
+}
+
+.re-ok {
+  @apply bg-gray7 rounded-full p-2;
+}
+
+.re-ok-form {
+  @apply flex gap-2;
+}
+
+.re-suggestions {
+  @apply absolute bg-white w-10/12 divide-y divide-gray2 border rounded;
+
+  bottom: calc(100% + 4px);
+}

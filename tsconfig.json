@@ -8,5 +8,6 @@
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
     "resolveJsonModule": true
-  }
+  },
+  "include": ["./src", "./src/index.d.ts"]
 }
