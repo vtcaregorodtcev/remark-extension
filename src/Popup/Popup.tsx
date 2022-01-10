@@ -1,4 +1,4 @@
-import { Component, Show } from "solid-js";
+import { Component, createEffect, createSignal, Show } from "solid-js";
 import Remark32Icon from "@src/icons/remark-32.svg";
 import { MainForm } from "./components/main-form";
 import { useSyncStorage } from "@src/hooks/use-sync-storage";
@@ -8,8 +8,12 @@ import {
   isApiConfig,
 } from "./components/api-config-form";
 import { HeaderMenu } from "./components/header-menu";
-
-const API_CONFIG_SYNC_STORAGE_KEY = "API_CONFIG_SYNC_STORAGE_KEY";
+import { API_CONFIG_SS_K, BOOKMARKS_SS_K } from "@src/constants";
+import { useActiveTab } from "@src/hooks/use-active-tab";
+import { Bookmark, createBookmark } from "@src/api/create-bookmark";
+import { toRecord } from "@src/utils/to-record";
+import { Skeleton } from "./components/skeleton";
+import { RemarkedPage } from "./components/remarked-page";
 
 const Header: Component = ({ children }) => (
   <header class="h-14 flex items-center justify-between px-8">
@@ -28,7 +32,34 @@ const Footer: Component = () => (
 );
 
 const Popup: Component = () => {
-  const [apiConfig, setApiConfig] = useSyncStorage(API_CONFIG_SYNC_STORAGE_KEY);
+  const [isApiReady, setApiReady] = createSignal(false);
+  const [bookmark, setBookmark] = createSignal({} as Bookmark);
+
+  const activeTab = useActiveTab();
+
+  const [bookmarks, setBookmarks] = useSyncStorage(BOOKMARKS_SS_K);
+  const [apiConfig, setApiConfig] = useSyncStorage(API_CONFIG_SS_K);
+
+  createEffect(async () => {
+    const config: ApiConfig = toRecord(apiConfig.value);
+    const apiReady = isApiConfig(config);
+
+    setApiReady(apiReady);
+
+    if (apiReady) {
+      const newUrl = activeTab.value.url;
+      const bookmarksCache: Record<string, Bookmark> = toRecord(
+        bookmarks.value
+      );
+
+      const bookmark =
+        bookmarksCache[newUrl] || (await createBookmark(config, newUrl));
+      setBookmark(bookmark);
+
+      bookmarksCache[newUrl] = bookmark;
+      setBookmarks(JSON.stringify(bookmarksCache));
+    }
+  });
 
   const onConfigSave = (config?: ApiConfig) =>
     setApiConfig(JSON.stringify(config));
@@ -39,10 +70,17 @@ const Popup: Component = () => {
         <HeaderMenu onApiConfigClear={onConfigSave} />
       </Header>
       <Show
-        when={isApiConfig(JSON.parse(apiConfig.value || "{}"))}
+        when={isApiReady()}
         fallback={<APIConfigForm onSave={onConfigSave} />}
       >
-        <MainForm topLabels={["Solutions", "OSS", "Todos"]} />
+        <Show
+          when={!bookmark().IsRemarked}
+          fallback={<RemarkedPage label={bookmark().Label} />}
+        >
+          <Show when={Boolean(bookmark().Name)} fallback={<Skeleton />}>
+            <MainForm bookmark={bookmark()} />
+          </Show>
+        </Show>
       </Show>
       <Footer />
     </div>

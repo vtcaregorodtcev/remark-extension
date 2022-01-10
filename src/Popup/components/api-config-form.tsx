@@ -1,3 +1,5 @@
+import { API_PATH_SS_K, API_XKEY_SS_K } from "@src/constants";
+import { useSyncStorage } from "@src/hooks/use-sync-storage";
 import { Component, createSignal } from "solid-js";
 
 export type ApiConfig = {
@@ -13,14 +15,18 @@ export type APIConfigFormProps = {
 };
 
 export const APIConfigForm: Component<APIConfigFormProps> = ({ onSave }) => {
-  const [apiPath, setApiPath] = createSignal("");
-  const [apiXKey, setApiXKey] = createSignal("");
+  const [apiPath, setApiPath] = useSyncStorage(API_PATH_SS_K);
+  const [apiXKey, setApiXKey] = useSyncStorage(API_XKEY_SS_K);
 
-  const onSubmit = () =>
+  const onSubmit = () => {
     onSave({
-      apiPath: apiPath(),
-      apiXKey: apiXKey(),
+      apiPath: apiPath.value,
+      apiXKey: apiXKey.value,
     });
+
+    setApiPath("");
+    setApiXKey("");
+  };
 
   return (
     <form class="re-content" onSubmit={onSubmit}>
@@ -32,12 +38,14 @@ export const APIConfigForm: Component<APIConfigFormProps> = ({ onSave }) => {
         class="re-input mb-3"
         type="text"
         placeholder="API path"
+        value={apiPath.value}
         onInput={(e) => setApiPath(e.currentTarget.value)}
       />
       <input
         class="re-input"
         type="text"
         placeholder="API x-key"
+        value={apiXKey.value}
         onInput={(e) => setApiXKey(e.currentTarget.value)}
       />
       <button type="submit" class="mt-3 w-1/4 self-end re-box">

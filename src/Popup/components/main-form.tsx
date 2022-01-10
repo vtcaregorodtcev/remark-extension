@@ -1,41 +1,33 @@
 import { Component, For } from "solid-js";
-import OkIcon from "@src/icons/ok.svg";
 import { NewLabelForm } from "./new-label-form";
+import { Bookmark } from "@src/api/create-bookmark";
+import { toArray } from "@src/utils/to-array";
+import { TopLabelsItem } from "./top-labels-item";
 
 type MainFormProps = {
-  topLabels: string[];
+  bookmark: Bookmark;
 };
 
-type TopLabelsItemProps = {
-  label: string;
-};
-
-export const OkBtn: Component = () => (
-  <div class="w-2/12 flex items-center justify-center">
-    <button type="submit" class="re-ok">
-      <img src={OkIcon} alt="Ok" />
-    </button>
-  </div>
-);
-
-const TopLabelsItem: Component<TopLabelsItemProps> = ({ label }) => (
-  <div class="re-ok-form mb-3 last:mb-0 first:text-4xl">
-    <span class="re-box-inverse w-max">{label}</span>
-    <OkBtn />
-  </div>
-);
-
-export const MainForm: Component<MainFormProps> = ({ topLabels }) => {
+export const MainForm: Component<MainFormProps> = ({ bookmark }) => {
   return (
     <div class="re-content">
       <label class="re-label">Here is the TOP of possible labels</label>
       <div>
-        <For each={topLabels}>{(label) => <TopLabelsItem label={label} />}</For>
+        <For each={toArray(bookmark.TopLabels)}>
+          {(label) => <TopLabelsItem label={label} />}
+        </For>
       </div>
       <label class="re-label mt-6">
         Did I predict it wrong? Type a new label or pick one of yours
       </label>
       <NewLabelForm />
+      <label class="re-label mt-6">The name of your Bookmark</label>
+      <input
+        class="re-input"
+        type="text"
+        placeholder={bookmark.Name}
+        value={bookmark.Name}
+      />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { Component, createSignal, createResource, Show, For } from "solid-js";
 import { clickOutside } from "@src/utils/click-outside";
-import { OkBtn } from "./main-form";
+import { RoundButton } from "./round-button";
 
 async function fetchSuggestionsForNewLabel(label: string) {
   return await ["label", "alphabet", "music", "movies", "treshold"].filter(
@@ -49,7 +49,7 @@ export const NewLabelForm: Component = () => {
         onInput={(e) => setNewLabel(e.currentTarget.value)}
         onFocus={onFocus}
       />
-      <OkBtn />
+      <RoundButton />
     </form>
   );
 };

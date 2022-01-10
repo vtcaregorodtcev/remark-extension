@@ -1,0 +1,1 @@
+export const toRecord = (val: string) => JSON.parse(val || "{}");
