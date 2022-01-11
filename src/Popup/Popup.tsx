@@ -50,7 +50,6 @@ const Popup: Component = () => {
     setApiReady(apiReady);
 
     if (apiReady && newUrl && text.value) {
-      const newUrl = activeTab.value.url;
       const bookmarksCache: Record<string, Bookmark> = toRecord(
         bookmarks.value
       );
