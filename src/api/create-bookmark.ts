@@ -5,18 +5,19 @@ export type Bookmark = {
   Label: string;
   Link: string;
   Name: string;
-  BoW: string;
+  Text: string;
   TopLabels: string;
   IsRemarked: boolean;
 }
 
-export const createBookmark = async (config: ApiConfig, url: string): Promise<Bookmark> => {
+export const createBookmark = async (config: ApiConfig, url: string, text: string): Promise<Bookmark> => {
   return await (await fetch(`${config.apiPath}/bookmarks`, {
     method: 'POST',
     mode: 'cors',
     body: JSON.stringify({
       Name: url,
       Link: url,
+      Text: text,
       // -- will set on back -- 
       Label: 'MockLabel',
       TopLabels: 'MockLabel,Out,Test'

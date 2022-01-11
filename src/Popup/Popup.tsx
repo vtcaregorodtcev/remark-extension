@@ -14,6 +14,7 @@ import { Bookmark, createBookmark } from "@src/api/create-bookmark";
 import { toRecord } from "@src/utils/to-record";
 import { Skeleton } from "./components/skeleton";
 import { RemarkedPage } from "./components/remarked-page";
+import { usePageText } from "@src/hooks/use-page-text";
 
 const Header: Component = ({ children }) => (
   <header class="h-14 flex items-center justify-between px-8">
@@ -35,25 +36,28 @@ const Popup: Component = () => {
   const [isApiReady, setApiReady] = createSignal(false);
   const [bookmark, setBookmark] = createSignal({} as Bookmark);
 
+  const text = usePageText();
   const activeTab = useActiveTab();
 
   const [bookmarks, setBookmarks] = useSyncStorage(BOOKMARKS_SS_K);
   const [apiConfig, setApiConfig] = useSyncStorage(API_CONFIG_SS_K);
 
   createEffect(async () => {
+    const newUrl = activeTab.value.url;
     const config: ApiConfig = toRecord(apiConfig.value);
     const apiReady = isApiConfig(config);
 
     setApiReady(apiReady);
 
-    if (apiReady) {
+    if (apiReady && newUrl && text.value) {
       const newUrl = activeTab.value.url;
       const bookmarksCache: Record<string, Bookmark> = toRecord(
         bookmarks.value
       );
 
       const bookmark =
-        bookmarksCache[newUrl] || (await createBookmark(config, newUrl));
+        bookmarksCache[newUrl] ||
+        (await createBookmark(config, newUrl, text.value));
       setBookmark(bookmark);
 
       bookmarksCache[newUrl] = bookmark;
