@@ -21,18 +21,16 @@ const preprocess = (s: string) => {
 export const usePageText = () => {
   const [store, setStore] = createStore({ value: "" });
 
-  onMount(() => {
-    tabs.query(tabsQuery, function (tabs) {
-      const { id: tabId } = tabs[0];
+  tabs.query(tabsQuery, function (tabs) {
+    const { id: tabId } = tabs[0];
 
-      scripting.executeScript(
-        {
-          target: { tabId, allFrames: true },
-          func: () => document.body.innerText,
-        },
-        ([data]) => setStore({ value: preprocess(String(data.result)) })
-      );
-    });
+    scripting.executeScript(
+      {
+        target: { tabId, allFrames: true },
+        func: () => document.body.innerText,
+      },
+      ([data]) => setStore({ value: preprocess(String(data.result)) })
+    );
   });
 
   return store;

@@ -18,6 +18,7 @@ import { usePageText } from "@src/hooks/use-page-text";
 import { updateBookmark } from "@src/api/update-bookmark";
 import { toArray } from "@src/utils/to-array";
 import { clearStorages } from "@src/utils/clear-storages";
+import { useLoading } from "@src/hooks/use-loading";
 
 const Header: Component = ({ children }) => (
   <header class="h-14 flex items-center justify-between px-8">
@@ -36,16 +37,18 @@ const Footer: Component = () => (
 );
 
 const Popup: Component = () => {
+  const [isLoading, loading] = useLoading();
+
   const [isApiReady, setApiReady] = createSignal(false);
   const [bookmark, setBookmark] = createSignal({} as Bookmark);
 
-  const text = usePageText();
+  const pageText = usePageText();
   const activeTab = useActiveTab();
 
   const [apiConfig, setApiConfig] = useStorage(API_CONFIG_SS_K);
   const [bookmarks, setBookmarks] = useStorage(BOOKMARKS_SS_K, "local");
 
-  const updateCurrentBookmark = (bookmark: Bookmark) => {
+  const updateView = (bookmark: Bookmark) => {
     const bookmarksCache = toRecord(bookmarks.value);
     bookmarksCache[bookmark.Link] = bookmark;
 
@@ -56,20 +59,24 @@ const Popup: Component = () => {
   };
 
   createEffect(async () => {
-    const newUrl = activeTab.value.url;
+    const Text = pageText.value;
+    const Link = activeTab.value.url;
+
     const config: ApiConfig = toRecord(apiConfig.value);
     const apiReady = isApiConfig(config);
 
     setApiReady(apiReady);
 
-    if (apiReady && newUrl && text.value) {
+    if (apiReady && Text && Link) {
       const bookmarksCache = toRecord(bookmarks.value);
 
-      const bookmark =
-        bookmarksCache[newUrl] ||
-        (await createBookmark(config, newUrl, text.value));
+      loading(async () => {
+        const bookmark =
+          bookmarksCache[Link] ||
+          (await createBookmark(config, { Link, Text, Name: Link }));
 
-      updateCurrentBookmark(bookmark);
+        updateView(bookmark);
+      });
     }
   });
 
@@ -85,9 +92,11 @@ const Popup: Component = () => {
       IsRemarked: true,
     };
 
-    const updated = await updateBookmark(toRecord(apiConfig.value), newBMark);
+    loading(async () => {
+      const updated = await updateBookmark(toRecord(apiConfig.value), newBMark);
 
-    updateCurrentBookmark(updated);
+      updateView(updated);
+    });
   };
 
   const onLabelEdit = async () => {
@@ -103,9 +112,11 @@ const Popup: Component = () => {
       IsRemarked: false,
     };
 
-    const updated = await updateBookmark(toRecord(apiConfig.value), newBMark);
+    loading(async () => {
+      const updated = await updateBookmark(toRecord(apiConfig.value), newBMark);
 
-    updateCurrentBookmark(updated);
+      updateView(updated);
+    });
   };
 
   return (
@@ -122,13 +133,16 @@ const Popup: Component = () => {
         when={isApiReady()}
         fallback={<APIConfigForm onSave={onConfigSave} />}
       >
-        <Show
-          when={!bookmark().IsRemarked}
-          fallback={
-            <RemarkedPage onLabelEdit={onLabelEdit} label={bookmark().Label} />
-          }
-        >
-          <Show when={Boolean(bookmark().Name)} fallback={<Skeleton />}>
+        <Show when={!isLoading()} fallback={<Skeleton />}>
+          <Show
+            when={!bookmark().IsRemarked}
+            fallback={
+              <RemarkedPage
+                label={bookmark().Label}
+                onLabelEdit={onLabelEdit}
+              />
+            }
+          >
             <MainForm bookmark={bookmark()} onLabelSubmit={onLabelSubmit} />
           </Show>
         </Show>
