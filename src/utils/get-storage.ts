@@ -1,4 +1,19 @@
+import { BOOKMARKS_SS_K } from "@src/constants";
+
 let mock = JSON.parse(localStorage.getItem('mock') || '{}');
+
+const BookmarksMock = {
+  "/mock/url": {
+    "Link": "/mock/url",
+    "Label": "MockLabel",
+    "Text": "some text to preceed",
+    "Id": "1aaee2c5-5ec2-44f7-b38c-bcf48728abd5",
+    "TopLabels": "MockLabel,Out,Test",
+    "Name": "/mock/url"
+  }
+}
+
+mock[BOOKMARKS_SS_K] = JSON.stringify(BookmarksMock);
 
 export type StorageType = 'sync' | 'local';
 

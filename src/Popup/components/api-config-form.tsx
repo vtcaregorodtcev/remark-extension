@@ -48,7 +48,11 @@ export const APIConfigForm: Component<APIConfigFormProps> = ({ onSave }) => {
         value={apiXKey.value}
         onInput={(e) => setApiXKey(e.currentTarget.value)}
       />
-      <button type="submit" class="mt-3 w-1/4 self-end re-box">
+      <button
+        disabled={!apiPath.value || !apiXKey.value}
+        type="submit"
+        class="mt-3 w-1/4 self-end re-box"
+      >
         Save
       </button>
     </form>

@@ -6,15 +6,19 @@ import { TopLabelsItem } from "./top-labels-item";
 
 type MainFormProps = {
   bookmark: Bookmark;
+  onLabelSubmit: (label: string) => void;
 };
 
-export const MainForm: Component<MainFormProps> = ({ bookmark }) => {
+export const MainForm: Component<MainFormProps> = ({
+  bookmark,
+  onLabelSubmit,
+}) => {
   return (
     <div class="re-content">
       <label class="re-label">Here is the TOP of possible labels</label>
       <div>
         <For each={toArray(bookmark.TopLabels)}>
-          {(label) => <TopLabelsItem label={label} />}
+          {(label) => <TopLabelsItem onSubmit={onLabelSubmit} label={label} />}
         </For>
       </div>
       <label class="re-label mt-6">
