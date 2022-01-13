@@ -11,7 +11,7 @@ const tabsQuery = { active: true, currentWindow: true };
 const preprocess = (s: string) => {
   const lower = s.toLowerCase();
   const alphanums = lower
-    .replace(/[^a-zA-Z0-9]+/g, " ") // only alphanumeric
+    .replace(/[^a-zA-Z]+/g, " ") // only characters
     .replace(/http\S+/g, "") // without urls
     .replace(/\s\s+/g, " "); // without multiple spaces
 

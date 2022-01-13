@@ -1,6 +1,6 @@
 import { API_PATH_SS_K, API_XKEY_SS_K } from "@src/constants";
-import { useSyncStorage } from "@src/hooks/use-sync-storage";
-import { Component, createSignal } from "solid-js";
+import { useStorage } from "@src/hooks/use-storage";
+import { Component } from "solid-js";
 
 export type ApiConfig = {
   apiPath: string;
@@ -15,8 +15,8 @@ export type APIConfigFormProps = {
 };
 
 export const APIConfigForm: Component<APIConfigFormProps> = ({ onSave }) => {
-  const [apiPath, setApiPath] = useSyncStorage(API_PATH_SS_K);
-  const [apiXKey, setApiXKey] = useSyncStorage(API_XKEY_SS_K);
+  const [apiPath, setApiPath] = useStorage(API_PATH_SS_K);
+  const [apiXKey, setApiXKey] = useStorage(API_XKEY_SS_K);
 
   const onSubmit = () => {
     onSave({

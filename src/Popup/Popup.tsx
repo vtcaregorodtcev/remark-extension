@@ -1,7 +1,7 @@
 import { Component, createEffect, createSignal, Show } from "solid-js";
 import Remark32Icon from "@src/icons/remark-32.svg";
 import { MainForm } from "./components/main-form";
-import { useSyncStorage } from "@src/hooks/use-sync-storage";
+import { useStorage } from "@src/hooks/use-storage";
 import {
   ApiConfig,
   APIConfigForm,
@@ -39,8 +39,8 @@ const Popup: Component = () => {
   const text = usePageText();
   const activeTab = useActiveTab();
 
-  const [bookmarks, setBookmarks] = useSyncStorage(BOOKMARKS_SS_K);
-  const [apiConfig, setApiConfig] = useSyncStorage(API_CONFIG_SS_K);
+  const [apiConfig, setApiConfig] = useStorage(API_CONFIG_SS_K);
+  const [bookmarks, setBookmarks] = useStorage(BOOKMARKS_SS_K, "local");
 
   createEffect(async () => {
     const newUrl = activeTab.value.url;

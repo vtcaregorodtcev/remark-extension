@@ -17,10 +17,7 @@ export const createBookmark = async (config: ApiConfig, url: string, text: strin
     body: JSON.stringify({
       Name: url,
       Link: url,
-      Text: text,
-      // -- will set on back -- 
-      Label: 'MockLabel',
-      TopLabels: 'MockLabel,Out,Test'
+      Text: text
     }),
     headers: {
       'accept': '*/*',
