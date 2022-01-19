@@ -15,16 +15,12 @@ Remark can help you organize your bookmarks just in two clicks instead of scroll
 
 Remark is open-sourced and fully free, but to keep your data safe Remark need to use `AWS clouds`. You need to have an `Amazon` account to deploy backend part of Remark.
 
----
-
 ## Ecosystem
 
 | Project                                                                       | Status                                                                                                                                        | Description                                                                               |
 | ----------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | [remark-aws-backend](https://github.com/vtcaregorodtcev/remark-aws-backend)   | <img src="https://img.shields.io/badge/license-MIT-green" /> <img src="https://badge.fury.io/js/@vtcaregorodtcev%2Fremark-aws-backend.svg" /> | Backend part of Remark extension. Allows to save all created bookmarks and classify them. |
 | [remark-telegram-bot](https://github.com/vtcaregorodtcev/remark-telegram-bot) | <img src="https://img.shields.io/badge/license-MIT-green" />                                                                                  | Mobile client of Remark based on telegram messanger. Have the same functionality.         |
-
----
 
 ## Usage
 
