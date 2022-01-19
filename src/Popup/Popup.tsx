@@ -32,7 +32,7 @@ const Header: Component = ({ children }) => (
 
 const Footer: Component = () => (
   <footer class="h-14 text-base flex items-center px-8 text-gray6">
-    AI-powered AWS based bookmark manager
+    AI-powered AWS-based bookmark manager
   </footer>
 );
 
