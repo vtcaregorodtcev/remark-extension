@@ -7,11 +7,13 @@ import { TopLabelsItem } from "./top-labels-item";
 type MainFormProps = {
   bookmark: Bookmark;
   onLabelSubmit: (label: string) => void;
+  onNameChange: (name: string) => void;
 };
 
 export const MainForm: Component<MainFormProps> = ({
   bookmark,
   onLabelSubmit,
+  onNameChange,
 }) => {
   return (
     <div class="re-content">
@@ -31,6 +33,7 @@ export const MainForm: Component<MainFormProps> = ({
         type="text"
         placeholder={bookmark.Name}
         value={bookmark.Name}
+        onInput={(e) => onNameChange(e.currentTarget.value)}
       />
     </div>
   );

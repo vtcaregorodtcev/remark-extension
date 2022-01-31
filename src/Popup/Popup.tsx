@@ -103,8 +103,11 @@ const Popup: Component = () => {
     const bMark = bookmark();
     const topLabels = toArray(bMark.TopLabels);
 
-    topLabels.pop();
     topLabels.unshift(bMark.Label);
+
+    if (topLabels.length > 3) {
+      topLabels.pop();
+    }
 
     const newBMark = {
       ...bMark,
@@ -118,6 +121,9 @@ const Popup: Component = () => {
       updateView(updated);
     });
   };
+
+  const onNameChange = (Name: string) =>
+    setBookmark((bookmark) => ({ ...bookmark, Name }));
 
   return (
     <div class="flex flex-col w-96 h-max divide-y divide-gray2">
@@ -143,7 +149,11 @@ const Popup: Component = () => {
               />
             }
           >
-            <MainForm bookmark={bookmark()} onLabelSubmit={onLabelSubmit} />
+            <MainForm
+              bookmark={bookmark()}
+              onLabelSubmit={onLabelSubmit}
+              onNameChange={onNameChange}
+            />
           </Show>
         </Show>
       </Show>
