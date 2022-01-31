@@ -1,23 +1,27 @@
-import { Component, createSignal, createResource, Show, For } from "solid-js";
+import { Component, createSignal, Show, For, createEffect } from "solid-js";
 import { clickOutside } from "@src/utils/click-outside";
 import { RoundButton } from "./round-button";
-
-async function fetchSuggestionsForNewLabel(label: string) {
-  return await ["label", "alphabet", "music", "movies", "treshold"].filter(
-    (x) => x.includes(label)
-  );
-}
+import { parseArray } from "@src/utils/parse-array";
+import { useSuggestions } from "@src/hooks/use-suggestions";
 
 type NewLabelFormProps = {
   onSubmit: (label: string) => void;
 };
 
 export const NewLabelForm: Component<NewLabelFormProps> = ({ onSubmit }) => {
-  const [newLabel, setNewLabel] = createSignal("New Label");
-  const [suggestedLabels, { mutate: setSuggestions }] = createResource(
-    newLabel,
-    fetchSuggestionsForNewLabel
+  const suggestedLabels = useSuggestions();
+
+  const [visibleSuggestions, setVisibleSuggestions] = createSignal<string[]>(
+    []
   );
+  const [newLabel, setNewLabel] = createSignal("New Label");
+
+  createEffect(() => {
+    const labels = parseArray<string>(suggestedLabels.value);
+
+    const filtered = labels.filter((label) => label.includes(newLabel()));
+    setVisibleSuggestions(filtered);
+  });
 
   const onFocus = function () {
     // use function notation for 'this' access
@@ -28,12 +32,12 @@ export const NewLabelForm: Component<NewLabelFormProps> = ({ onSubmit }) => {
     <form
       class="re-ok-form relative"
       // @ts-ignore
-      use:clickOutside={() => setSuggestions([])}
+      use:clickOutside={() => setVisibleSuggestions([])}
       onSubmit={() => onSubmit(newLabel())}
     >
-      <Show when={suggestedLabels()?.length > 0}>
+      <Show when={visibleSuggestions().length > 0}>
         <div class="re-suggestions">
-          <For each={suggestedLabels()}>
+          <For each={visibleSuggestions()}>
             {(label) => (
               <div
                 class="p-2 odd:bg-gray1 hover:bg-gray2 cursor-pointer"
