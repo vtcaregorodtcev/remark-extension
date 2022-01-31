@@ -48,7 +48,7 @@
 }
 
 .re-menu {
-  @apply absolute bg-white w-max divide-y divide-gray2 border rounded;
+  @apply absolute bg-white w-max divide-y divide-gray2 border rounded z-10;
 
   top: calc(100% - 10px);
   right: 0%;

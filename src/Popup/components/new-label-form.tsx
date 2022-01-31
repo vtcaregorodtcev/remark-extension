@@ -8,7 +8,11 @@ async function fetchSuggestionsForNewLabel(label: string) {
   );
 }
 
-export const NewLabelForm: Component = () => {
+type NewLabelFormProps = {
+  onSubmit: (label: string) => void;
+};
+
+export const NewLabelForm: Component<NewLabelFormProps> = ({ onSubmit }) => {
   const [newLabel, setNewLabel] = createSignal("New Label");
   const [suggestedLabels, { mutate: setSuggestions }] = createResource(
     newLabel,
@@ -25,6 +29,7 @@ export const NewLabelForm: Component = () => {
       class="re-ok-form relative"
       // @ts-ignore
       use:clickOutside={() => setSuggestions([])}
+      onSubmit={() => onSubmit(newLabel())}
     >
       <Show when={suggestedLabels()?.length > 0}>
         <div class="re-suggestions">

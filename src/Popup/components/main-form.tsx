@@ -24,7 +24,7 @@ export const MainForm: Component<MainFormProps> = ({
       <label class="re-label mt-6">
         Did I predict it wrong? Type a new label or pick one of yours
       </label>
-      <NewLabelForm />
+      <NewLabelForm onSubmit={onLabelSubmit} />
       <label class="re-label mt-6">The name of your Bookmark</label>
       <input
         class="re-input"
