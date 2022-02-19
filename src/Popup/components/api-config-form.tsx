@@ -35,6 +35,7 @@ export const APIConfigForm: Component<APIConfigFormProps> = ({ onSave }) => {
         config
       </label>
       <input
+        data-testid="api-path-input"
         class="re-input mb-3"
         type="text"
         placeholder="API path"
@@ -42,6 +43,7 @@ export const APIConfigForm: Component<APIConfigFormProps> = ({ onSave }) => {
         onInput={(e) => setApiPath(e.currentTarget.value)}
       />
       <input
+        data-testid="api-xkey-input"
         class="re-input"
         type="text"
         placeholder="API x-key"
@@ -49,6 +51,7 @@ export const APIConfigForm: Component<APIConfigFormProps> = ({ onSave }) => {
         onInput={(e) => setApiXKey(e.currentTarget.value)}
       />
       <button
+        data-testid="submit-api-config"
         disabled={!apiPath.value || !apiXKey.value}
         type="submit"
         class="mt-3 w-1/4 self-end re-box"

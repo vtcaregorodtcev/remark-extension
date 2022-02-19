@@ -5,5 +5,8 @@
   "manifest_version": 3,
   "action": { "default_popup": "popup.html" },
   "permissions": ["tabs", "storage", "unlimitedStorage", "scripting"],
-  "host_permissions": ["<all_urls>"]
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  }
 }
