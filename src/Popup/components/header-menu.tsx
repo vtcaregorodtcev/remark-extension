@@ -1,5 +1,6 @@
 import { Component, createSignal, Show } from "solid-js";
 import { clickOutside } from "@src/utils/click-outside";
+import { DOTS_MENU, DOTS_MENU_CLEAR_CONFIG } from "@tests/lib/testids";
 
 type HeaderMenuProps = {
   onApiConfigClear: () => void;
@@ -16,7 +17,11 @@ export const HeaderMenu: Component<HeaderMenuProps> = ({
       // @ts-ignore
       use:clickOutside={() => setVisible(false)}
     >
-      <button class="re-dots" onClick={() => setVisible((v) => !v)}>
+      <button
+        data-testid={DOTS_MENU}
+        class="re-dots"
+        onClick={() => setVisible((v) => !v)}
+      >
         <div class="re-dot"></div>
         <div class="re-dot"></div>
         <div class="re-dot"></div>
@@ -24,6 +29,7 @@ export const HeaderMenu: Component<HeaderMenuProps> = ({
       <Show when={visible()}>
         <div class="re-menu">
           <div
+            data-testid={DOTS_MENU_CLEAR_CONFIG}
             class="re-menu-option"
             onClick={() => {
               setVisible(false);

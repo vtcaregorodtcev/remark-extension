@@ -1,6 +1,10 @@
 import { API_PATH_SS_K, API_XKEY_SS_K } from "@src/constants";
 import { useStorage } from "@src/hooks/use-storage";
-import { API_PATH_INPUT, API_XKEY_INPUT, SUBMIT_API_CONFIG } from "@tests/testids";
+import {
+  API_PATH_INPUT,
+  API_XKEY_INPUT,
+  SUBMIT_API_CONFIG,
+} from "@tests/lib/testids";
 import { Component } from "solid-js";
 
 export type ApiConfig = {
@@ -19,7 +23,10 @@ export const APIConfigForm: Component<APIConfigFormProps> = ({ onSave }) => {
   const [apiPath, setApiPath] = useStorage(API_PATH_SS_K);
   const [apiXKey, setApiXKey] = useStorage(API_XKEY_SS_K);
 
-  const onSubmit = () => {
+  const onSubmit = (e: Event) => {
+    // to prevent reloading
+    e.preventDefault();
+
     onSave({
       apiPath: apiPath.value,
       apiXKey: apiXKey.value,

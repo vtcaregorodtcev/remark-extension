@@ -1,7 +1,8 @@
 import puppeteer, { Browser, WaitForOptions } from 'puppeteer';
 
-const EXAMPLE_PAGE_URL = 'https://www.google.com/';
 const WAIT_TIL_LOAD: WaitForOptions = { waitUntil: 'load' };
+
+export const EXAMPLE_PAGE_URL = 'https://www.google.com/';
 
 const initBrowserWithExtension = async (extensionPath: string) => await puppeteer.launch({
   headless: false,
@@ -28,7 +29,7 @@ const getExtensionPage = async (browser: Browser) => {
 
   // @ts-ignore
   const partialExtensionUrl = extensionTarget._targetInfo.url || '';
-  const [,, extensionId] = partialExtensionUrl.split('/');
+  const [, , extensionId] = partialExtensionUrl.split('/');
 
   const extensionPage = await browser.newPage();
   const extensionUrl = `chrome-extension://${extensionId}/popup.html`;

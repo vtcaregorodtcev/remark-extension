@@ -1,3 +1,0 @@
-export const API_PATH_INPUT = 'API_PATH_INPUT';
-export const API_XKEY_INPUT = 'API_XKEY_INPUT';
-export const SUBMIT_API_CONFIG = 'SUBMIT_API_CONFIG';
