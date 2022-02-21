@@ -9,7 +9,7 @@
     "build:popup": "parcel build src/Popup/popup.html",
     "build:background": "parcel build src/background.ts",
     "build": "rm -rf dist && npm-run-all 'build:*' && node ./scripts/build-manifest",
-    "test": "cross-env NODE_ENV=test pnpm build && jest --detectOpenHandles --verbose --testPathPattern=.*.test.ts"
+    "test": "cross-env NODE_ENV=test npm build && jest --detectOpenHandles --verbose --testPathPattern=.*.test.ts"
   },
   "license": "MIT",
   "dependencies": {
