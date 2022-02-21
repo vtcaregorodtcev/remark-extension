@@ -12,11 +12,11 @@ jobs:
         with:
           fetch-depth: 0
       - name: Build project
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         env:
           PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
         with:
-          args: install
+          node-version: "14"
       - name: Install dependencies
         run: npx pnpm install
       - name: Tests
