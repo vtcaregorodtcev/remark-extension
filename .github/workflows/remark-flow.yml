@@ -4,7 +4,7 @@ on:
       - main
       - dev
 jobs:
-  test:
+  RemarkFlow:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -16,7 +16,9 @@ jobs:
         env:
           PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
         with:
-          args: npx pnpm install
+          args: install
+      - name: Install dependencies
+        run: npx pnpm install
       - name: Tests
         uses: beemi/puppeteer-headful@master
         env:
