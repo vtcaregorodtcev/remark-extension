@@ -1,0 +1,28 @@
+on:
+  pull_request:
+    branches:
+      - main
+      - dev
+jobs:
+  RemarkFlow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Build project
+        uses: actions/setup-node@v2
+        env:
+          PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
+        with:
+          node-version: "14"
+      - name: Install dependencies
+        run: npx pnpm install
+      - name: Tests
+        uses: beemi/puppeteer-headful@master
+        env:
+          CI: "true"
+          DISPLAY: :99
+        with:
+          args: npm test

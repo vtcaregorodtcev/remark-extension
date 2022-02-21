@@ -9,7 +9,9 @@
     "jsxImportSource": "solid-js",
     "resolveJsonModule": true,
     "paths": {
-      "@src*": ["./src*"]
+      "@src*": ["./src*"],
+      "@tests*": ["./tests*"]
     }
-  }
+  },
+  "include": ["./src", "./tests"]
 }
