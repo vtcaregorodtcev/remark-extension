@@ -22,6 +22,11 @@ Remark is open-sourced and fully free, but to keep your data safe Remark need to
 | [remark-aws-backend](https://github.com/vtcaregorodtcev/remark-aws-backend)   | <img src="https://img.shields.io/badge/license-MIT-green" /> <img src="https://badge.fury.io/js/@vtcaregorodtcev%2Fremark-aws-backend.svg" /> | Backend part of Remark extension. Allows to save all created bookmarks and classify them. |
 | [remark-telegram-bot](https://github.com/vtcaregorodtcev/remark-telegram-bot) | <img src="https://img.shields.io/badge/license-MIT-green" /> <img src="https://badge.fury.io/js/@vtcaregorodtcev%2Fremark-telegram-bot.svg" />                                                                                  | Mobile client of Remark based on telegram messanger. Have the same functionality.         |
 
+## Overall architecture
+<p align="center">
+<img width="838" alt="Screenshot 2023-03-03 at 00 48 56" src="https://user-images.githubusercontent.com/24553355/222565179-50026840-0fb6-4679-8984-2ad3626f0d38.png">
+</p>
+
 ## Usage
 
 This project in under development now and will be not available in Chrome Web-Extensions Store for some time, but this is not prevent you from using Remark right now. See next paragraph.
